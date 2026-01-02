@@ -219,7 +219,7 @@
             let message = ""; let stampText = ""; let stampColor = "";
 
             if (offeringValue.startsWith('bad')) {
-                message = `Con <strong>${name}</strong> đã ko thành tâm, Bottas sẽ ko phù hộ cho con, con sẽ rớt môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong>, thân mến!`;
+                message = `Con <strong>${name}</strong> đã không thành tâm, Bottas sẽ không phù hộ cho con, con sẽ rớt môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong>, thân mến!`;
                 stampText = "TỪ CHỐI ĐỘ"; stampColor = "#555"; 
                 musicFail.volume = 1.0; musicFail.play();
             } else {
