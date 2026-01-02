@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Web Cầu May</title>
     <style>
         /* --- MÀN HÌNH INTRO XẤU QUẮC --- */
@@ -12,81 +12,124 @@
             display: flex; justify-content: center; align-items: center;
         }
         #btn-ugly {
-            font-family: Arial, sans-serif; font-size: 10px;
+            font-family: Arial, sans-serif; font-size: 12px; /* Tăng xíu cho dễ bấm trên đt */
             background-color: #f0f0f0; border: 1px solid #999;
-            padding: 2px 5px; cursor: pointer; color: black; text-transform: lowercase;
+            padding: 5px 10px; cursor: pointer; color: black; text-transform: lowercase;
         }
         #btn-ugly:active { background-color: #ccc; }
 
         /* --- GIAO DIỆN CHÍNH --- */
         body {
             font-family: 'Times New Roman', serif;
-            background-color: #8B0000; /* Màu nền dự phòng nếu ảnh lỗi */
+            background-color: #8B0000;
             
-            /* ĐÃ BẬT HÌNH NỀN SẴN - CHỈ CẦN CÓ FILE background.jpg LÀ HIỆN */
+            /* HÌNH NỀN */
             background-image: url('background.jpg'); 
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
             
+            /* Căn giữa */
             display: flex; justify-content: center; align-items: center;
-            height: 100vh; margin: 0; text-align: center; overflow: hidden;
+            min-height: 100vh; /* Dùng min-height để mobile ko bị mất nội dung */
+            margin: 0; text-align: center;
+            /* Cho phép cuộn dọc trên điện thoại nhỏ */
+            overflow-y: auto; 
+            overflow-x: hidden;
         }
 
-        /* Container chính */
+        /* Container chính - Responsive */
         .container {
-            background: rgba(0, 0, 0, 0.85); /* Màu đen mờ 85% để làm nổi chữ */
-            color: #FFD700; /* KHÓA MÀU CHỮ VÀNG Ở ĐÂY ĐỂ KHÔNG BỊ MẤT */
+            background: rgba(0, 0, 0, 0.85);
+            color: #FFD700;
             
-            padding: 40px 30px;
-            border-radius: 20px;
+            /* Kích thước linh hoạt */
+            width: 90%; 
+            max-width: 450px; /* Max trên PC là 450px */
+            
+            padding: 30px 20px; /* Giảm padding cho mobile thoáng hơn */
+            border-radius: 15px;
             border: 2px solid #FFD700;
-            box-shadow: 0 0 30px #FFD700;
-            max-width: 90%; width: 450px; position: relative;
+            box-shadow: 0 0 20px #FFD700;
+            position: relative;
+            margin: 20px auto; /* Cách lề trên dưới để ko dính sát mép đt */
         }
 
-        h1 { text-transform: uppercase; text-shadow: 2px 2px 4px #000; margin-top: 0; margin-bottom: 10px; font-size: 1.8em; }
-        h2 { text-transform: uppercase; margin-top: 0; }
+        /* Typography responsive */
+        h1 { 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 4px #000; 
+            margin-top: 0; 
+            margin-bottom: 10px; 
+            font-size: 1.5em; /* Giảm font title cho vừa đt */
+            line-height: 1.3;
+        }
+        
+        h2 { text-transform: uppercase; margin-top: 0; font-size: 1.3em; }
+        
         .hidden { display: none !important; }
 
-        .intro-text p { font-size: 1.1em; margin: 5px 0; line-height: 1.4; }
-        .intro-sub { font-style: italic; font-size: 0.9em; opacity: 0.8; margin-top: 15px !important; }
+        .intro-text p { font-size: 1em; margin: 5px 0; line-height: 1.4; }
+        .intro-sub { font-style: italic; font-size: 0.85em; opacity: 0.8; margin-top: 10px !important; }
 
-        label { display: block; text-align: left; margin-top: 10px; font-weight: bold; color: #FFD700; }
+        label { display: block; text-align: left; margin-top: 10px; font-weight: bold; color: #FFD700; font-size: 0.9em; }
 
+        /* Input responsive */
         input, select {
-            width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box;
+            width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box;
             border-radius: 5px; border: 1px solid #FFD700; background: #fff;
-            font-family: 'Times New Roman', serif; font-size: 16px; color: #000;
+            font-family: 'Times New Roman', serif; 
+            font-size: 16px; /* Size 16px chặn iPhone tự zoom khi nhập liệu */
+            color: #000;
         }
 
+        /* Nút bấm responsive */
         .btn-fancy {
             background-color: #FFD700; color: #8B0000; border: none;
-            padding: 15px 30px; font-size: 18px; font-weight: bold;
-            border-radius: 50px; cursor: pointer; margin-top: 25px;
+            padding: 12px 20px; /* Nút gọn hơn */
+            font-size: 16px; font-weight: bold;
+            border-radius: 50px; cursor: pointer; margin-top: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.2s;
+            width: 100%; /* Trên mobile nút full chiều ngang cho dễ bấm */
         }
-        .btn-fancy:hover { transform: scale(1.05); background-color: #ffe066; }
+        .btn-fancy:hover { transform: scale(1.02); background-color: #ffe066; }
 
-        .god-image { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #FFD700; margin-bottom: 15px; }
+        /* Ảnh thần */
+        .god-image { 
+            width: 100px; height: 100px; /* Thu nhỏ ảnh chút */
+            border-radius: 50%; object-fit: cover; 
+            border: 3px solid #FFD700; margin-bottom: 10px; 
+        }
 
+        /* Giấy chứng nhận */
         .certificate-paper {
-            background-color: #fff8dc; color: #8B0000; padding: 30px 20px;
-            border: 5px double #8B0000; border-radius: 0px; margin-top: 10px;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
+            background-color: #fff8dc; color: #8B0000; padding: 20px 15px;
+            border: 4px double #8B0000; border-radius: 0px; margin-top: 10px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.5); position: relative;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .stamp {
-            border: 3px solid red; color: red; display: inline-block;
-            padding: 5px 10px; font-weight: bold; text-transform: uppercase;
-            border-radius: 5px; transform: rotate(-15deg); margin-top: 20px;
-            opacity: 0.8; font-size: 1.2em;
+            border: 2px solid red; color: red; display: inline-block;
+            padding: 3px 8px; font-weight: bold; text-transform: uppercase;
+            border-radius: 5px; transform: rotate(-15deg); margin-top: 15px;
+            opacity: 0.8; font-size: 1em;
         }
 
-        .result-text { font-size: 1.3em; line-height: 1.6; font-weight: bold; margin-top: 15px; }
+        .result-text { font-size: 1.1em; line-height: 1.5; font-weight: bold; margin-top: 10px; }
         .fade-in { animation: fadeIn 0.8s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Media Query cho màn hình PC rộng hơn */
+        @media (min-width: 768px) {
+            h1 { font-size: 2em; }
+            .btn-fancy { width: auto; padding: 15px 40px; font-size: 18px; }
+            .god-image { width: 130px; height: 130px; }
+            .container { padding: 40px; }
+            .certificate-paper { padding: 30px; border-width: 5px; }
+            .result-text { font-size: 1.3em; }
+            .stamp { font-size: 1.3em; padding: 5px 15px; border-width: 3px; }
+        }
     </style>
 </head>
 <body>
@@ -123,14 +166,14 @@
                 <label>Lễ vật dâng lên:</label>
                 <select id="offering">
                     <option value="good-1">Dinh Độc Lập</option>
+                    <option value="good-2">Gấu bông Joke Bear</option>
+                    <option value="bad-1">Rau má (Cẩn thận!)</option>
                     <option value="good-3">Bộ vô lăng F1</option>
                     <option value="good-4">Gear guitar điện</option>
-                    <option value="bad-3">Canh mồng tơi</option>
-                    <option value="good-5">Truyện Sherlock Holmes</option>
-                    <option value="good-6">Comm Johnfleur</option>
-                    <option value="bad-1">Rau má</option>
                     <option value="bad-2">Cà tím xào</option>
-                    <option value="good-2">Gấu bông Joke Bear</option>
+                    <option value="good-5">Truyện Sherlock Holmes</option>
+                    <option value="bad-3">Canh mồng tơi</option>
+                    <option value="good-6">Comm Johnfleur</option>
                     <option value="bad-4">Chân gà sả ớt</option>
                 </select>
                 <button class="btn-fancy" onclick="submitPrayer()">🔔 DÂNG LỄ & CẦU NGUYỆN</button>
@@ -138,7 +181,7 @@
 
             <div id="screen-result" class="hidden">
                 <div class="certificate-paper fade-in">
-                    <img src="bottas.jpg" alt="Thần Bottas" class="god-image" style="border-color: #8B0000; width: 100px; height: 100px; margin-bottom: 0;" onerror="this.src='https://via.placeholder.com/150/FFFF00/000000?text=Bottas'">
+                    <img src="bottas.jpg" alt="Thần Bottas" class="god-image" style="border-color: #8B0000; width: 80px; height: 80px; margin-bottom: 0;" onerror="this.src='https://via.placeholder.com/150/FFFF00/000000?text=Bottas'">
                     <div id="result-content" class="result-text"></div>
                     <div id="stamp-box" class="stamp">ĐÃ CHỨNG GIÁM</div>
                 </div>
@@ -171,6 +214,7 @@
             document.getElementById('name').value = "";
             document.getElementById('subject').value = "";
             document.getElementById('date').value = "";
+            // Tôi đã trộn option để troll như bạn muốn rồi nhé
             document.getElementById('offering').value = "good-1";
             
             document.getElementById('screen-result').classList.add('hidden');
@@ -201,7 +245,7 @@
             let message = ""; let stampText = ""; let stampColor = "";
 
             if (offeringValue.startsWith('bad')) {
-                message = `Con <strong>${name}</strong> đã ko thành tâm, Bottas sẽ ko phù hộ cho con, con sẽ rớt môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong>, thân mến!`;
+                message = `Con <strong>${name}</strong> đã không thành tâm, Bottas sẽ không phù hộ cho con, con sẽ rớt môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong>, thân mến!`;
                 stampText = "TỪ CHỐI ĐỘ"; stampColor = "#555"; 
                 musicFail.volume = 1.0; musicFail.play();
             } else {
