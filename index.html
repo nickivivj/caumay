@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Web Cầu May</title>
+    <title>Web Cầu May V4</title>
     <style>
-        /* --- MÀN HÌNH INTRO XẤU QUẮC --- */
+        /* --- MÀN HÌNH INTRO --- */
         #screen-intro {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: white; z-index: 9999;
@@ -22,32 +22,23 @@
         body {
             font-family: 'Times New Roman', serif;
             background-color: #8B0000;
-            
-            /* HÌNH NỀN */
             background-image: url('background.jpg'); 
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-            
+            background-size: cover; background-position: center; background-repeat: no-repeat;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; margin: 0; text-align: center;
             overflow-y: auto; overflow-x: hidden;
         }
 
-        /* Container chính */
+        /* Container */
         .container {
             background: rgba(0, 0, 0, 0.85);
             color: #FFD700;
             width: 90%; max-width: 450px;
             padding: 30px 20px;
-            border-radius: 15px;
-            border: 2px solid #FFD700;
-            box-shadow: 0 0 20px #FFD700;
-            position: relative;
-            margin: 20px auto;
+            border-radius: 15px; border: 2px solid #FFD700; box-shadow: 0 0 20px #FFD700;
+            position: relative; margin: 20px auto;
         }
 
-        /* Typography */
         h1 { text-transform: uppercase; text-shadow: 2px 2px 4px #000; margin-top: 0; margin-bottom: 10px; font-size: 1.5em; line-height: 1.3; }
         h2 { text-transform: uppercase; margin-top: 0; font-size: 1.3em; }
         .hidden { display: none !important; }
@@ -67,8 +58,7 @@
             background-color: #FFD700; color: #8B0000; border: none;
             padding: 12px 20px; font-size: 16px; font-weight: bold;
             border-radius: 50px; cursor: pointer; margin-top: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.2s;
-            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.2s; width: 100%;
         }
         .btn-fancy:hover { transform: scale(1.02); background-color: #ffe066; }
 
@@ -92,7 +82,11 @@
         .fade-in { animation: fadeIn 0.8s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* PC View */
+        /* Version mark */
+        .version-mark {
+            position: absolute; bottom: 5px; left: 10px; font-size: 10px; color: rgba(255,255,255,0.3); font-family: Arial, sans-serif;
+        }
+
         @media (min-width: 768px) {
             h1 { font-size: 2em; }
             .btn-fancy { width: auto; padding: 15px 40px; font-size: 18px; }
@@ -116,6 +110,8 @@
 
     <div id="main-app" class="hidden">
         <div class="container">
+            <div class="version-mark">v4.0 - DataPersist</div>
+
             <div id="screen-home">
                 <img src="bottas.jpg" alt="Thần Bottas" class="god-image" onerror="this.src='https://via.placeholder.com/150/FFFF00/000000?text=Bottas'">
                 <h1>Đền Thờ Bottas Vivj</h1>
@@ -175,22 +171,22 @@
             document.getElementById('screen-form').classList.remove('hidden');
         }
 
-        // --- ĐÂY LÀ HÀM ĐÃ SỬA ---
+        // --- HÀM QUAY LẠI (ĐÃ KIỂM TRA KỸ) ---
         function resetToInput() {
+            // 1. Tắt nhạc kết quả
             const musicSuccess = document.getElementById('music-success');
             const musicFail = document.getElementById('music-fail');
-            
-            // Tắt nhạc kết quả
             musicSuccess.pause(); musicSuccess.currentTime = 0;
             musicFail.pause(); musicFail.currentTime = 0;
             
-            // Bật lại nhạc nền
+            // 2. Bật lại nhạc nền
             const bgMusic = document.getElementById('bg-music');
             if (bgMusic.paused) bgMusic.play();
             
-            // KHÔNG XÓA DỮ LIỆU INPUT NỮA (Giữ nguyên Name, Subject, Date, Offering)
+            // 3. TUYỆT ĐỐI KHÔNG XÓA DỮ LIỆU Ở ĐÂY
+            // Dữ liệu trong các ô input vẫn còn nguyên vì trang web không bị reload.
             
-            // Chỉ chuyển màn hình
+            // 4. Chuyển đổi màn hình
             document.getElementById('screen-result').classList.add('hidden');
             document.getElementById('screen-form').classList.remove('hidden');
         }
