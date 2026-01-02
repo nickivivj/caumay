@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Cầu May</title>
+    <style>
+        /* --- MÀN HÌNH INTRO XẤU QUẮC (Minimalist) --- */
+        #screen-intro {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: white;
+            z-index: 9999; /* Luôn nằm trên cùng */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Nút bắt đầu nhỏ xíu, font arial, nhìn chán đời */
+        #btn-ugly {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #999;
+            padding: 2px 5px;
+            cursor: pointer;
+            color: black;
+            text-transform: lowercase; /* chữ thường cho nó phèn */
+        }
+        
+        #btn-ugly:active {
+            background-color: #ccc;
+        }
+
+        /* --- CSS GIAO DIỆN CHÍNH (ĐẸP) --- */
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #8B0000;
+            background-image: url('background.jpg'); /* <--- Thêm dòng này */
+            background-size: cover;                  /* <--- Thêm dòng này (để ảnh tràn màn hình) */
+            background-position: center;             /* <--- Thêm dòng này (căn giữa ảnh) */
+            color: #FFD700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Container chính */
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #FFD700;
+            box-shadow: 0 0 30px #FFD700;
+            max-width: 90%;
+            width: 450px;
+            position: relative;
+        }
+
+        h1, h2 { text-transform: uppercase; text-shadow: 2px 2px 4px #000; margin-top: 0;}
+        .hidden { display: none !important; }
+
+        /* Input Form */
+        label {
+            display: block; text-align: left; margin-top: 10px; font-weight: bold; color: #FFD700;
+        }
+
+        input, select {
+            width: 100%; padding: 12px; margin-top: 5px; box-sizing: border-box;
+            border-radius: 5px; border: 1px solid #FFD700; background: #fff;
+            font-family: 'Times New Roman', serif; font-size: 16px;
+        }
+
+        /* Nút bấm xịn (Trong giao diện đẹp) */
+        .btn-fancy {
+            background-color: #FFD700; color: #8B0000; border: none;
+            padding: 15px 30px; font-size: 18px; font-weight: bold;
+            border-radius: 50px; cursor: pointer; margin-top: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.2s;
+        }
+        .btn-fancy:hover { transform: scale(1.05); background-color: #ffe066; }
+
+        /* Ảnh thần */
+        .god-image {
+            width: 120px; height: 120px; border-radius: 50%;
+            object-fit: cover; border: 3px solid #FFD700; margin-bottom: 15px;
+        }
+
+        /* Giấy chứng nhận */
+        .certificate-paper {
+            background-color: #fff8dc; color: #8B0000; padding: 30px 20px;
+            border: 5px double #8B0000; border-radius: 0px; margin-top: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5); position: relative;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        /* Dấu mộc */
+        .stamp {
+            border: 3px solid red; color: red; display: inline-block;
+            padding: 5px 10px; font-weight: bold; text-transform: uppercase;
+            border-radius: 5px; transform: rotate(-15deg); margin-top: 20px;
+            opacity: 0.8; font-size: 1.2em;
+        }
+
+        .result-text { font-size: 1.3em; line-height: 1.6; font-weight: bold; margin-top: 15px; }
+        .fade-in { animation: fadeIn 0.8s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <audio id="sound-bong" src="bong.mp3"></audio>
+    <audio id="bg-music" src="bgmusic.mp3" loop></audio>
+    <audio id="music-success" src="success.mp3" loop></audio>
+    <audio id="music-fail" src="fail.mp3" loop></audio>
+
+    <div id="screen-intro">
+        <button id="btn-ugly" onclick="startApp()">bắt đầu</button>
+    </div>
+
+    <div id="main-app" class="hidden">
+        <div class="container">
+            
+            <div id="screen-home">
+                <img src="bottas.jpg" alt="Thần Bottas" class="god-image" onerror="this.src='https://via.placeholder.com/150/FFFF00/000000?text=Bottas'">
+                <h1>Đền Thờ Bottas Vivj</h1>
+                <p>Tâm thành thì điểm cao.<br>Chọn lễ vật cho khéo.</p>
+                <button class="btn-fancy" onclick="goToForm()">🙏 TÔI MUỐN CẦU MAY</button>
+            </div>
+
+            <div id="screen-form" class="hidden">
+                <h2>Dâng Lễ Vật</h2>
+                
+                <label>Tên thí sinh:</label>
+                <input type="text" id="name" placeholder="Nhập họ tên...">
+                
+                <label>Môn thi:</label>
+                <input type="text" id="subject" placeholder="VD: Triết học Mác - Lênin...">
+                
+                <label>Ngày thi:</label>
+                <input type="date" id="date">
+
+                <label>Lễ vật dâng lên:</label>
+                <select id="offering">
+                    <option value="good-1">Dinh Độc Lập</option>
+                    <option value="good-2">Gấu bông Joke Bear</option>
+                    <option value="good-3">Bộ vô lăng F1</option>
+                    <option value="good-4">Gear guitar điện</option>
+                    <option value="good-5">Truyện Sherlock Holmes</option>
+                    <option value="good-6">Comm Johnfleur</option>
+                    
+                    <option value="bad-1">Rau má</option>
+                    <option value="bad-2">Cà tím xào</option>
+                    <option value="bad-3">Canh mồng tơi</option>
+                    <option value="bad-4">Chân gà sả ớt</option>
+                </select>
+
+                <button class="btn-fancy" onclick="submitPrayer()">🔔 DÂNG LỄ & CẦU NGUYỆN</button>
+            </div>
+
+            <div id="screen-result" class="hidden">
+                
+                <div class="certificate-paper fade-in">
+                    <img src="bottas.jpg" alt="Thần Bottas" class="god-image" style="border-color: #8B0000; width: 100px; height: 100px; margin-bottom: 0;" onerror="this.src='https://via.placeholder.com/150/FFFF00/000000?text=Bottas'">
+                    
+                    <div id="result-content" class="result-text"></div>
+
+                    <div id="stamp-box" class="stamp">ĐÃ CHỨNG GIÁM</div>
+                </div>
+
+                <button class="btn-fancy" onclick="location.reload()">Quay lại cổng đền</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. KHI BẤM NÚT "bắt đầu" XẤU QUẮC ---
+        function startApp() {
+            // Ẩn màn hình trắng, hiện app chính
+            document.getElementById('screen-intro').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+
+            // Bật nhạc nền chính
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.volume = 0.5;
+            bgMusic.play();
+        }
+
+        // --- 2. CHUYỂN TỪ HOME VÀO FORM ---
+        function goToForm() {
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-form').classList.remove('hidden');
+        }
+
+        // --- 3. XỬ LÝ KẾT QUẢ ---
+        function submitPrayer() {
+            const name = document.getElementById('name').value;
+            const subject = document.getElementById('subject').value;
+            const dateInput = document.getElementById('date').value;
+            const offeringValue = document.getElementById('offering').value;
+
+            if (!name || !subject || !dateInput) {
+                alert("Thí sinh chưa điền đủ thông tin!");
+                return;
+            }
+
+            const dateFormatted = new Date(dateInput).toLocaleDateString('vi-VN');
+            
+            // --- XỬ LÝ ÂM THANH CHUYỂN CẢNH ---
+            
+            // 1. Dừng nhạc nền chính
+            const bgMusic = document.getElementById('bg-music');
+            bgMusic.pause();
+            bgMusic.currentTime = 0; // Tua về đầu
+
+            // 2. Chơi tiếng BOONG
+            const soundBong = document.getElementById('sound-bong');
+            soundBong.volume = 1.0;
+            soundBong.play();
+
+            // 3. Chuẩn bị nhạc kết quả
+            const musicSuccess = document.getElementById('music-success');
+            const musicFail = document.getElementById('music-fail');
+
+            // --- LOGIC HIỂN THỊ ---
+            let message = "";
+            let stampText = "";
+            let stampColor = "";
+
+            if (offeringValue.startsWith('bad')) {
+                // RỚT MÔN
+                message = `Con <strong>${name}</strong> đã ko thành tâm, Bottas sẽ ko phù hộ cho con, con sẽ rớt môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong>, thân mến!`;
+                stampText = "TỪ CHỐI ĐỘ";
+                stampColor = "#555"; 
+                
+                // Chơi nhạc buồn/hề
+                musicFail.volume = 1.0;
+                musicFail.play();
+
+            } else {
+                // ĐẬU MÔN
+                message = `Bottas vivj xác nhận sẽ phù hộ độ trì cho <strong>${name}</strong> thi môn <strong>${subject}</strong> vào ngày <strong>${dateFormatted}</strong> để mọi việc diễn ra suôn sẻ và thuận lợi, con sẽ được aquamon.`;
+                stampText = "PHÊ CHUẨN";
+                stampColor = "red";
+
+                // Chơi nhạc chiến thắng
+                musicSuccess.volume = 1.0;
+                musicSuccess.play();
+            }
+
+            // Render ra màn hình
+            const resultBox = document.getElementById('result-content');
+            const stampBox = document.getElementById('stamp-box');
+            
+            resultBox.innerHTML = message;
+            stampBox.innerText = stampText;
+            stampBox.style.color = stampColor;
+            stampBox.style.borderColor = stampColor;
+
+            // Chuyển màn hình
+            document.getElementById('screen-form').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
