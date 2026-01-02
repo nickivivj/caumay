@@ -167,7 +167,7 @@
                 <select id="offering">
                     <option value="good-1">Dinh Độc Lập</option>
                     <option value="good-2">Gấu bông Joke Bear</option>
-                    <option value="bad-1">Rau má (Cẩn thận!)</option>
+                    <option value="bad-1">Rau má</option>
                     <option value="good-3">Bộ vô lăng F1</option>
                     <option value="good-4">Gear guitar điện</option>
                     <option value="bad-2">Cà tím xào</option>
@@ -228,7 +228,7 @@
             const offeringValue = document.getElementById('offering').value;
 
             if (!name || !subject || !dateInput) {
-                alert("Thí sinh chưa điền đủ thông tin!"); return;
+                alert("Thí chủ chưa điền đủ thông tin, bottas biết đéo đâu mà độ"); return;
             }
 
             const dateFormatted = new Date(dateInput).toLocaleDateString('vi-VN');
